@@ -14,15 +14,21 @@ def load_FER2013(DATA_DIR):
     test = data[data['Usage'] == 'PrivateTest']
     return train, val, test
 
-def parse_FER2013(data):
+def parse_FER2013(data, target_size=(48, 48), target_channel=1):
     """ Parse fer2013 data to 48x48 greyscale images,
         and one-hot vector as labels """
-
-    images = np.zeros(shape=(len(data), 48, 48, 1))
-    labels = np.zeros(shape=(len(data), 1))
+    real_image_size = (48, 48)
+    real_image_channel = 1
+    images = np.empty(shape=(len(data), *target_size, target_channel))
+    labels = np.empty(shape=(len(data), 1))
     for i, idx in enumerate(data.index):
-        img = np.fromstring(data.loc[idx, 'pixels'], dtype=int, sep=' ')
-        img = np.reshape(img, (48, 48, 1))
+        img = np.fromstring(data.loc[idx, 'pixels'], dtype='uint8', sep=' ')
+        img = np.reshape(img, (48, 48))
+        if target_size != real_image_size:
+            img = cv2.resize(img, target_size, interpolation=cv2.INTER_CUBIC)
+        img = img[..., np.newaxis]
+        if target_channel != real_image_channel:
+            img = np.repeat(img, repeats=3, axis=-1)
         label = data.loc[idx, 'emotion']
         images[i] = img
         labels[i] = label
