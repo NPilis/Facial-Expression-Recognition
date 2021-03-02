@@ -5,9 +5,9 @@ from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.optimizers import Adam
 from keras.regularizers import l2
 from keras import layers
-from tensorflow.keras.applications import ResNet50
+from keras_vggface.vggface import VGGFace
 
-def simple_CNN():
+def init_cnn_baseline_model():
     input_shape=(48,48,1)
 
     model = Sequential()
@@ -135,8 +135,25 @@ def mini_Xception():
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-
-def resnet():
-    resnet = ResNet50(include_top=False, input_shape=(48, 48, 1), weights="imagenet")
-    resnet.summary()
-    return resnet
+def init_resnet_model():
+    """ Initialize model with ResNet50 as base model. Minimum input
+        shape of keras_vggface pretrained model is (197, 197, 3).
+        For fine tuning batch normalization layers are not frozen. """
+    resnet = VGGFace(model='resnet50', include_top=False, input_shape = (197,197,3))
+    for layer in resnet.layers:
+        if not isinstance(layer, BatchNormalization):
+            layer.trainable = False
+    model = Sequential([
+        resnet,
+        Flatten(),
+        Dropout(0.5),
+        Dense(4096, activation='relu'),
+        Dropout(0.5),
+        Dense(1024, activation='relu'),
+        Dropout(0.5),
+        Dense(7, activation='softmax')
+    ])
+    opt = Adam(0.001)
+    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.summary()
+    return model

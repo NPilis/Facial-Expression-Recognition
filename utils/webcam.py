@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 from keras.models import load_model
-import argparse
 
 def detect_classify_display(frame, model_name='resnet'):
     frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -41,7 +40,6 @@ cap = cv2.VideoCapture(0)
 if not cap.isOpened:
     print('Error opening video capture')
     exit(0)
-
 while True:
     ret, frame = cap.read()
     if frame is None:
