@@ -1,5 +1,7 @@
+data/fer
 data/fer2013
 data/CK+48
+data/*.jpg
 
 .vscode
 !.vscode/settings.json

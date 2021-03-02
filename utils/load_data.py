@@ -3,8 +3,9 @@ import numpy as np
 import pandas as pd
 from keras.utils import to_categorical
 from sklearn.utils import shuffle
+from PIL import Image
 
-def load_FER2013(file_path='../data/fer2013/fer2013.csv'):
+def load_fer2013(file_path='../data/fer2013/fer2013.csv'):
     """ Load fer2013.csv dataset from csv file """
     df = pd.read_csv(file_path)
     train = df[df['Usage'] == 'Training']
@@ -12,7 +13,7 @@ def load_FER2013(file_path='../data/fer2013/fer2013.csv'):
     test = df[df['Usage'] == 'PrivateTest']
     return train, val, test
 
-def parse_FER2013(data, target_size=(48, 48), target_channel=1):
+def parse_fer2013(data, target_size=(48, 48), target_channel=1):
     """ Parse fer2013 data to images with specified sizes,
         and one-hot vector as labels """
     real_image_size = (48, 48)
@@ -59,7 +60,7 @@ def fer_csv_to_png(file_path='../data/fer2013/fer2013.csv', data_dir='../data/fe
     df = pd.read_csv(file_path)
     for dataset in ("train", 'val', "test"):
         for emotion in emotions:
-            mkdir(data_dir + f'{dataset}/{emotion} {emotions[emotion]}')
+            os.mkdir(data_dir + f'{dataset}/{emotion} {emotions[emotion]}')
     count = 0
     for emotion, pixels, usage in zip(df['emotion'],df['pixels'],df['Usage']):
         img = np.fromstring(pixels, dtype='uint8', sep=' ').reshape(48, 48)

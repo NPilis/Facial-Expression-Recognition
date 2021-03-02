@@ -32,8 +32,7 @@ def detect_classify_display(frame, model_name='resnet'):
 emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
 
 # Loading models
-model_name = 'simple_CNN'
-model = load_model('../models/saved_models/fer2013_simple_CNN-e88-a0.65.hdf5')
+model = load_model('../models/saved_models/fer2013_resnet50_1-e41-a0.71.hdf5')
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
 
 cap = cv2.VideoCapture(0)

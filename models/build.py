@@ -2,12 +2,11 @@
 from keras.models import Sequential, Model
 from keras.layers import Dense , Activation , Dropout ,Flatten, SeparableConv2D, Input, BatchNormalization, GlobalAveragePooling2D
 from keras.layers.convolutional import Conv2D, MaxPooling2D
-from keras.optimizers import Adam
 from keras.regularizers import l2
 from keras import layers
 from keras_vggface.vggface import VGGFace
 
-def init_cnn_baseline_model():
+def build_cnn_baseline_model():
     input_shape=(48,48,1)
 
     model = Sequential()
@@ -32,9 +31,6 @@ def init_cnn_baseline_model():
     model.add(Dropout(0.5))
     model.add(Dense(7, activation = 'softmax'))
 
-    opt = Adam(0.001)
-    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
-    
     return model
 
 def mini_Xception():
@@ -135,7 +131,7 @@ def mini_Xception():
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-def init_resnet_model():
+def build_resnet_model():
     """ Initialize model with ResNet50 as base model. Minimum input
         shape of keras_vggface pretrained model is (197, 197, 3).
         For fine tuning batch normalization layers are not frozen. """
@@ -153,7 +149,4 @@ def init_resnet_model():
         Dropout(0.5),
         Dense(7, activation='softmax')
     ])
-    opt = Adam(0.001)
-    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
-    model.summary()
     return model
