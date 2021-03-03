@@ -25,10 +25,34 @@ def plot_model_history(history):
     ax1.legend()
     ax2.legend()
 
-def plot_generated_images(data_gen, X_train):
-    it = data_gen.flow(X_train, batch_size=1)
-    for i in range(9):
-        plt.subplot(331 + i)
-        batch = it.next()
-        image = batch[0]
-        plt.imshow(image)
+def plot_generated_images(data_gen, n_epochs=3, b_size=6, figsize=(11,6)):
+    emotions = {0:'angry', 1:'disgust', 2:'fear',
+                3:'happy', 4:'sad', 5:'surprise', 6:'neutral'}
+    counter = 0  
+    fig, axs = plt.subplots(n_epochs, b_size, figsize=figsize)
+    for epoch in range(n_epochs):
+        for (x_batch, y_batch) in data_gen:
+            for i in range(b_size):
+                emotion_label = emotions[np.argmax(y_batch[i])]
+                axs[counter][i].imshow(x_batch[i], "gray")
+                axs[counter][i].set_title(emotion_label)
+                axs[counter][i].set_axis_off()
+            break
+        data_gen.on_epoch_end()
+        counter += 1
+    plt.show()
+    fig.savefig('../assets/gen_faces_.png')
+
+def plot_augumented_images(data_gen, n_epochs=3, b_size=6, figsize=(11,6)):
+    counter = 1
+    fig = plt.figure(figsize=figsize)
+    for epoch in range(n_epochs):
+        for i, (x_batch, _) in enumerate(data_gen):
+            plt.subplot(b_size, n_epochs, counter)
+            plt.imshow(x_batch[0], "gray")
+            plt.axis('off')
+            counter += 1
+            if i == b_size - 1:
+                break
+    plt.show()
+    fig.savefig('../assets/aug_faces.png')
