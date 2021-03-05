@@ -6,17 +6,17 @@ Project made with python to predict human emotional expressions given images of 
 * [Neural network architectures](#neural-network-architectures)
 * [Datasets](#datasets)
 * [Data augumentation](#data-augumentation)
-* [Technologies](#technologies)
+* [Technologies](#techologies)
 * [Usage](#usage)
 * [Future work](#future-work)
 * [References](#references)
 
 ## Neural network architectures
-1. Simple Baseline CNN model - [Link](#https://arxiv.org/abs/2004.11823)
+1. Simple Baseline CNN model - [Link](https://arxiv.org/abs/2004.11823)
 2. Pre-trained ResNet50 using Keras VGG-Face - Input size of the the network can't be smaller than 197x197 and must have 3 channels. So additional resizing and expanding dimensions of images was needed during training.
 
 ## Datasets
-- FER2013 can be downloaded on [Kaggle](#https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data) - dataset with ~ 35,000 greyscale images with faces automatically registered so that the face is more or less centered and occupies about the same amount of space in each image.
+- FER2013 can be downloaded on [Kaggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data) - dataset with ~ 35,000 greyscale images with faces automatically registered so that the face is more or less centered and occupies about the same amount of space in each image.
 
 ![Alt text](assets/gen_faces2.png?raw=true)
 
@@ -44,7 +44,7 @@ In order to test models make sure to download all pre-trained weights from [save
 python webcam.py --model_path <path to model>
 ```
 ### Training
-Download **FER2013** dataset from [Kaggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data) - extract *fer2013.tar.gz* to [data/](data/) folder.
+Download **FER2013** dataset from [Kaggle](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data) - extract *fer2013.tar.gz* file to [data/](data/) folder.
 To train neural networks you can use notebooks from [notebooks/](notebooks/) folder or adjust and run `train.py` script file
 ```
 python models/train.py
@@ -59,6 +59,6 @@ In addition to get better results of both model accuracy and execution time:
 - Use one NN for both detection and classification - this would reduce execution time significantly
 
 ## References
-1. https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data
+1. https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge
 2. https://arxiv.org/abs/2004.11823
 3. https://arxiv.org/pdf/1804.08348.pdf
