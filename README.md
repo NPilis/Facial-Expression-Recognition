@@ -4,7 +4,7 @@ Project made with python to predict human emotional expressions given images of 
 ## Table of contents
 
 * [Neural network architectures](#neural-network-architectures)
-* [Data distribution](#data-distibution)
+* [Datasets](#datasets)
 * [Data augumentation](#data-augumentation)
 * [Technologies](#technologies)
 * [Usage](#usage)
