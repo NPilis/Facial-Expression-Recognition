@@ -33,7 +33,7 @@ def build_cnn_baseline_model():
 
     return model
 
-def mini_Xception():
+def build_mini_Xception():
     num_classes = 7
     regularization = l2(0.01)
     input_shape=(48,48,1)
